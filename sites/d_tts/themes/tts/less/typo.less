@@ -1,0 +1,254 @@
+/* less/typo.less */
+
+// ** MIXINS **
+// ------------
+ 
+.text-color(@color){
+  color: @color;
+  .link-color(@color);
+}
+
+.link-color(@color){
+  a{
+    color: @color;
+    &:hover,
+    &:focus,
+    &:active{
+      color: darken(@color,10%);
+    }
+  } 
+}
+
+// ** HEADINGS **
+// --------------
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6{
+  .link-color(@headings-color);
+}
+
+h1, .h1{
+  .margin-b(1.5);
+}
+
+h4, .h4{
+  .margin-b(0.25);
+  .text-color(@brand-primary);
+}
+
+// ** BOLD AND LINKS **
+// --------------------
+
+// strong, b,
+// .text-bold,
+// a{
+//   font-weight: 600;
+// }
+
+a{
+  .transition(all ease-in-out .2s);
+}
+
+a:hover,
+a:focus,
+a:active{
+  text-decoration: none;
+}
+
+// Fix anchor position
+.paragraphs-item-copy a[name],
+a.anchor{
+  display: block;
+  position: relative;
+  top: -120px;
+  visibility: hidden;
+}
+
+// ** BLOCKQUOTE **
+// ----------------
+// * border-color: see variable.less:825
+
+blockquote{
+  .margin-v(1);
+  border: none;
+  font-family: @font-family-serif;
+  .text-color(@brand-primary-dark);
+  font-style: italic;
+  font-size: @font-size-base * 1.2;
+
+  li{
+    position: relative;
+    list-style: none;
+
+    &:before{
+      position: absolute;
+      top: 7px;
+      left: -30px;
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transform: translate(0, 0);
+      content: "\f058";
+    }
+  }
+
+}
+
+// ** LEAD **
+// ----------
+// * lead below sm . see type.less:62
+
+.lead{
+  font-size: (@font-size-base * 1.5);
+  color: @gray-dark;
+  font-weight: 400;
+}
+
+// ** TEXT MAX WIDTH **
+// --------------------
+
+.text-max-width{
+  max-width: 540px;
+}
+
+// ** HR **
+// --------
+
+hr{
+  border-top: 1px solid @gray-lighter;
+}
+
+// ** NEGATIVE **
+// --------------
+
+.negative{
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6{
+    .text-color(#fff);
+  }
+
+  p{
+    color: #fff;
+  }
+
+  .link-color(#fff);
+
+  .btn{
+    border-color: #fff;
+    background: none;
+    color: #fff;
+  }
+}
+
+// ** NAV BAR **
+// -------------
+
+// .navbar-default{
+//   .navbar-nav li a{
+//     text-transform: uppercase;
+//     font-weight: 600;
+//     font-size: @font-size-small;
+//   }
+// }
+
+// ** TEXT CAPS **
+// ---------------
+
+.text-caps{
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: @font-size-small;
+  font-weight: @headings-font-weight;
+
+  .text-color(@gray-darker);
+
+  &.text-share{
+    .text-color(@gray-light);
+  }
+
+}
+
+// ** TEXT SERIF **
+// ----------------
+
+.text-serif{
+  font-family: @font-family-serif;
+  font-style: italic;
+  //font-size: @font-size-base * 1.2;
+}
+
+// ** LINK INSIDE COPY **
+// ----------------------
+
+.field-name-body,
+.field-name-field-short,
+.copy{
+  .link-color(@brand-primary-dark);
+
+  a{
+    text-decoration: underline;
+  }
+
+  ul,
+  ol{
+    li{
+      .margin-b(0.5);
+    }
+
+  }
+}
+
+.date-cat{
+  .link-color(@brand-primary-dark);
+}
+
+// ** WEBFORM **
+// -------------
+// Help text
+
+.webform-client-form{
+  .description{
+    font-size: @font-size-small;
+    .margin-t(0.25);
+  }
+}
+
+// ** FOOTER **
+// ------------
+
+.block-footer{
+  h5{
+    .text-color(#fff);
+    text-transform: uppercase;
+  }
+  hr{
+    border-color: #fff;
+  }
+}
+
+.footer-common-link{
+  p{
+    .text-color(#fff);
+  }
+}
+
+// ** BREADCRUMB **
+// ----------------
+
+.breadcrumb{
+  text-align: center;
+  font-size: @font-size-small;
+  .margin-b(1);
+  .link-color(@gray-light);
+}
+
+
+// ** FANCY SOCIAL **
+// ------------------
+
+.fancy-social li{
+  .link-color(@brand-primary);
+}

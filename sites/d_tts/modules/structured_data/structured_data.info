@@ -1,0 +1,6 @@
+name = Structured Data(SEO)
+description = Structured Data for SEO
+core = 7.x
+package = SmileLab
+version = 7.x-1.0
+project = structured_data

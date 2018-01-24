@@ -1,0 +1,58 @@
+/* less/mask.less */
+
+.wrapper-mask-img{
+  position: relative;
+  overflow: hidden;
+  .clearfix();
+
+  svg{
+    .transition(all ease-in-out 2s);
+    position: absolute;
+    top: 50%;
+    left: -500px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateY(-50%);
+  }
+}
+
+.svg-blue{
+  fill: fade(#234EC3, 50%);
+}
+
+.svg-green{
+  fill: fade(#14AF9E, 50%);
+}
+
+.svg-blue,
+.svg-green{
+  position: relative;
+  .transition(all ease-in-out 2s);
+}
+
+.wrapper-mask-img:hover{
+  svg{
+    .svg-blue{
+      fill: #234EC3;
+    }
+  }
+
+  .level-1{
+    left: -300px;
+  }
+
+  .level-2{
+    left: -100px;
+  }
+}
+
+.wrapper-mask-img.animate{
+  .level-1{
+    left: -550px;
+  }
+  .level-2{
+    left: -600px;
+  }
+}

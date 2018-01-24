@@ -1,0 +1,66 @@
+# IDE/OS specific folders
+# -----------------------
+/.idea/
+/.SyncConfig/
+
+
+# IDE/OS specific files
+# ---------------------
+.directory
+.DS_Store
+
+
+# Other files/folders
+# -------------------
+/tmp/
+/.well-known/
+
+
+# DRUPAL - Sites - Main working folder
+# ------------------------------------
+/sites/*
+!/sites/d_tts/
+
+
+# DRUPAL - Configuration files containing sensitive information
+# -------------------------------------------------------------
+/sites/*/settings*.php
+
+
+# DRUPAL - Folders containing user-generated content
+# --------------------------------------------------
+/sites/*/files
+/sites/*/private
+/sites/*/translations
+
+
+# DRUPAL - Root folders
+# ---------------------
+/includes/
+/misc/
+/modules/
+/profiles/
+/scripts/
+/themes/
+
+
+# DRUPAL - Root files
+# -------------------
+/authorize.php
+/CHANGELOG.txt
+/COPYRIGHT.txt
+/cron.php
+/index.php
+/INSTALL.mysql.txt
+/INSTALL.pgsql.txt
+/install.php
+/INSTALL.sqlite.txt
+/INSTALL.txt
+/LICENSE.txt
+/MAINTAINERS.txt
+/README.txt
+/robots.txt
+/update.php
+/UPGRADE.txt
+/web.config
+/xmlrpc.php

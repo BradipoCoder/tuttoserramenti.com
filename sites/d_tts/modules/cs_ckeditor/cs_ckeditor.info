@@ -1,0 +1,5 @@
+name = Custom Settings Ckeditor
+description = Personalizzazioni per ckeditor
+package = Mekit
+core = 7.x
+version = 7.x-1.x-dev

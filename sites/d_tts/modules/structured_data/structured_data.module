@@ -1,0 +1,163 @@
+<?php
+/**
+ * Created by Adam Jakab.
+ * Date: 15/01/18
+ * Time: 10.46
+ */
+
+/**
+ * js present in head was included using html.tpl.php in template file
+ */
+
+
+/**
+ * Implements hook_theme().
+ */
+function structured_data_theme() {
+  return [
+    'structured_data_wrapper' => [
+      'template' => 'structured-data-wrapper',
+      'variables' => [
+        'nid' => NULL,
+        'pnid' => NULL,
+        'node_type' => NULL,
+        'node_data' => NULL,
+      ],
+      'pattern' => 'structured-data-wrapper__',
+    ],
+  ];
+}
+
+
+/**
+ * @param array $vars
+ */
+function template_preprocess_structured_data_wrapper(&$vars) {
+  if (isset($vars["nid"]) && !empty($vars["nid"])) {
+    $vars['theme_hook_suggestions'][] = 'structured_data_wrapper__'
+                                        . $vars["nid"];
+  }
+
+  if (isset($vars["node_type"]) && !empty($vars["node_type"])) {
+    $vars['theme_hook_suggestions'][] = 'structured_data_wrapper__'
+                                        . $vars["node_type"];
+  }
+
+  if (isset($vars["pnid"]) && !empty($vars["pnid"])) {
+    $vars['theme_hook_suggestions'][] = 'structured_data_wrapper__pnid__'
+                                        . $vars["pnid"];
+  }
+}
+
+
+/**
+ * @param array $vars
+ */
+function structured_data_preprocess_html(&$vars) {
+  if (!__structured_data_is_user_allowed()) {
+    return;
+  }
+
+  $node_object = menu_get_object();
+  if ($node_object && isset($node_object->type)) {
+    if ($node_object->type == 'landing') {
+      structured_data_preprocess_html_node_type_landing($vars, $node_object);
+    }
+    if ($node_object->type == 'news') {
+      structured_data_preprocess_html_node_type_news($vars, $node_object);
+    }
+  }
+}
+
+
+/**
+ * @param array $vars
+ * @param \stdClass $node_object
+ */
+function structured_data_preprocess_html_node_type_news(&$vars,
+                                                           $node_object) {
+  //dpm($node_object, "MGO - NEWS");
+  $vars["structured_data"] = __get_structured_data_theme_variables($node_object);
+  //dpm($vars["structured_data"], "SD");
+}
+
+/**
+ * @param array $vars
+ * @param \stdClass $node_object
+ */
+function structured_data_preprocess_html_node_type_landing(&$vars,
+                                                            $node_object) {
+  //dpm($node_object, "MGO - LANDING");
+  $vars["structured_data"] = __get_structured_data_theme_variables($node_object);
+  //dpm($vars["structured_data"], "SD");
+}
+
+/**
+ * @param \stdClass $node_object
+ *
+ * @return array
+ */
+function __get_structured_data_theme_variables($node_object) {
+  $pnid = isset($node_object->nodehierarchy_menu_links[0]['pnid']) ?
+    $node_object->nodehierarchy_menu_links[0]['pnid'] :
+    NULL;
+
+  $node_url = $GLOBALS['base_url'] . '/' . drupal_get_path_alias(
+      'node/' . $node_object->nid
+    );
+
+  $language = 'it';
+
+  $node_meta_title = isset($node_object->metatags[$language]['title']['value']) ?
+    $node_object->metatags[$language]['title']['value'] :
+    NULL;
+
+  $node_meta_description = isset($node_object->metatags[$language]['description']['value']) ?
+    $node_object->metatags[$language]['description']['value'] :
+    NULL;
+
+  $image_url = isset($node_object->field_img[LANGUAGE_NONE][0]['uri']) ?
+    image_style_url('share', $node_object->field_img[LANGUAGE_NONE][0]['uri']) :
+    NULL;
+
+
+  $structured_data = [
+    '#theme' => 'structured_data_wrapper',
+    '#nid' => $node_object->nid,
+    '#pnid' => $pnid,
+    '#node_type' => $node_object->type,
+    '#node_data' => [
+      'node_url' => $node_url,
+      'node_meta_title' => $node_meta_title,
+      'node_meta_description' => $node_meta_description,
+      'image_url' => $image_url,
+    ],
+  ];
+
+  return $structured_data;
+}
+
+/**
+ * For development: just to make sure mods are not messing up site whilst in
+ * progress
+ *
+ * @param bool $default
+ *
+ * @return bool
+ */
+function __structured_data_is_user_allowed($default = TRUE) {
+  $answer = $default;
+
+  /** @var array $allowed_users array of user ids */
+  $allowed_users = [1];
+
+  /** @var \stdClass $user */
+  global $user;
+
+  if (isset($user->uid) && in_array($user->uid, $allowed_users)) {
+    $answer = TRUE;
+  }
+
+  return $answer;
+}
+

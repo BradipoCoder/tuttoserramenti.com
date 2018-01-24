@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_wysiwyg_editor_settings_alter()
+ */
+function cs_ckeditor_wysiwyg_editor_settings_alter(&$settings, $context){
+  // The $context variable contains information about the wysiwyg profile we're using
+  // In this case we just need to check that the editor being used is ckeditor
+  if ($context['profile']->editor == 'ckeditor')
+  {
+
+    // The $settings variable contains all the config options ckeditor uses. 
+    // The array keys correspond directly with any setting that can be applied 
+    // to CKEditor - as outlined in the CKEditor docs: 
+    // http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html 
+    // Another way to override configuration is to use your own configuration javascript
+    // file. In this case, we're going to add our own configuration file that will
+    // Hold our stylesSet customizations... 
+    $settings['customConfig'] = base_path() . drupal_get_path('module', 'cs_ckeditor') . '/cs_ckeditor_config.js';
+  }
+}
